@@ -12,12 +12,11 @@ jobs:
       - name: Build
         run: msbuild AiHelper.sln /p:Configuration=Release
       - name: Find MSI
-        run: dir /s /b *.msi
+        shell: powershell
+        run: Get-ChildItem -Recurse -Filter "*.msi" | Select-Object -ExpandProperty FullName
       - name: Upload MSI
         uses: actions/upload-artifact@v4
         with:
           name: OfficeAgent
           path: |
             **/OfficeAgent.msi
-            **/Release/**/*.msi
-            **/Release/**/**/*.msi
