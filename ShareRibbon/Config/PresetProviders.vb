@@ -207,6 +207,19 @@ Public Class PresetProviders
         anthropic.model.Add(CreateModel("claude-3-opus-20240229", "claude-3-opus", False, False, False))
         providers.Add(anthropic)
 
+        ' MiniMax
+        Dim minimax As New ConfigItem()
+        minimax.pltform = "MiniMax"
+        minimax.url = "https://api.minimaxi.com/anthropic"
+        minimax.registerUrl = "https://www.minimax.io/"
+        minimax.providerType = ProviderType.Cloud
+        minimax.isPreset = True
+        minimax.key = ""
+        minimax.selected = False
+        minimax.model = New List(Of ConfigItemModel)()
+        minimax.model.Add(CreateModel("MiniMax-M2.7", "MiniMax-M2.7 [推理]", True, False, True))
+        providers.Add(minimax)
+
         Return providers
     End Function
 
