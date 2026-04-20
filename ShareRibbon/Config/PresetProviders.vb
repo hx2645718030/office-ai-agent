@@ -210,7 +210,7 @@ Public Class PresetProviders
         ' MiniMax
         Dim minimax As New ConfigItem()
         minimax.pltform = "MiniMax"
-        minimax.url = "https://api.minimaxi.com/anthropic"
+        minimax.url = "https://api.minimaxi.com/anthropic/v1/messages"
         minimax.registerUrl = "https://www.minimax.io/"
         minimax.providerType = ProviderType.Cloud
         minimax.isPreset = True
