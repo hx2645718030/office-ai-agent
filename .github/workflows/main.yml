@@ -7,5 +7,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
+      - name: Restore NuGet packages
+        run: nuget restore AiHelper.sln
       - name: Build
         run: msbuild AiHelper.sln /p:Configuration=Release
