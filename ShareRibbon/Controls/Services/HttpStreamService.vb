@@ -177,14 +177,21 @@ Public Class HttpStreamService
                     For Each msg In messages
                         Dim role = msg("role")?.ToString()
                         Dim content = msg("content")?.ToString()
-                        
+
+                        ' Anthropic/MiniMax 要求 content 为对象数组格式
+                        Dim contentArray = New JArray()
+                        contentArray.Add(New JObject From {
+                            {"type", "text"},
+                            {"text", content}
+                        })
+
                         ' Anthropic 不支持 system 角色在 messages 中，需要单独设置
                         If role = "system" Then
                             systemContent = content
                         Else
                             newMessages.Add(New JObject From {
                                 {"role", role},
-                                {"content", content}
+                                {"content", contentArray}
                             })
                         End If
                     Next
