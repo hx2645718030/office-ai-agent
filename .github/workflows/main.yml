@@ -11,12 +11,13 @@ jobs:
         run: nuget restore AiHelper.sln
       - name: Build
         run: msbuild AiHelper.sln /p:Configuration=Release
-      - name: Find MSI
+      - name: Package build outputs
         shell: powershell
-        run: Get-ChildItem -Recurse -Filter "*.msi" | Select-Object -ExpandProperty FullName
-      - name: Upload MSI
+        run: |
+          Get-ChildItem -Recurse -Path . -Include *.dll,*.exe,*.pdb | Where-Object { $_.FullName -notmatch 'obj|bin\\obj|packages' } | ForEach-Object { $_.FullName } | Select-Object -First 50
+          Compress-Archive -Path AiHelper.sln,ShareRibbon/bin/Release/*,ExcelAi/bin/Release/*,WordAi/bin/Release/*,PowerPointAi/bin/Release/* -DestinationPath build-output.zip -Force
+      - name: Upload build output
         uses: actions/upload-artifact@v4
         with:
-          name: OfficeAgent
-          path: |
-            **/OfficeAgent.msi
+          name: OfficeAgent-Build
+          path: build-output.zip
