@@ -75,7 +75,7 @@ Public Class HttpStreamService
             _stateService.ResetSessionTokens()
 
             ' 检测是否是 Anthropic API
-            Dim isAnthropic As Boolean = apiUrl.Contains("anthropic.com")
+            Dim isAnthropic As Boolean = apiUrl.Contains("anthropic.com") OrElse apiUrl.Contains("minimaxi.com")
 
             Try
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
